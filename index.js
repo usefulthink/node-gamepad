@@ -190,6 +190,7 @@ Gamepad.prototype._processJoysticks = function( data ) {
             };
             this._states[ joystick.name ] = currentState;
             this.emit( joystick.name + ':move', currentState );
+            this.emit('move', joystick.name, currentState);
         }
     }
 };
@@ -208,6 +209,7 @@ Gamepad.prototype._processButtons = function( data ) {
 
             if( isPressed ) {
                 this.emit( button.name + ':press' );
+                this.emit('press', button.name);
             }
 
             continue;
@@ -216,8 +218,10 @@ Gamepad.prototype._processButtons = function( data ) {
 
         if( isPressed && currentState !== isPressed ) {
             this.emit( button.name + ':press' );
+            this.emit('press', button.name);
         } else if( ! isPressed && currentState !== isPressed ) {
             this.emit( button.name + ':release' );
+            this.emit('release', button.name);
         }
 
         this._states[ button.name ] = isPressed;
@@ -246,6 +250,7 @@ Gamepad.prototype._processStatus = function( data ) {
         currentState = this._states[ status.name ];
         if( currentState !== state ) {
             this.emit( status.name + ':change', state );
+            this.emit( 'change', status.name, state );
         }
 
         this._states[ status.name ] = state;
