@@ -58,9 +58,16 @@ function Gamepad( type, options ) {
  * @method _loadConfiguration
  */
 Gamepad.prototype._loadConfiguration = function() {
-    var configPath = path.resolve( __dirname, './controllers/' + this._type + '.json' );
+    var configPath = null;
+
+    if(this._options.configPath) {
+        configPath = this._options.configPath;
+    } else {
+        configPath = path.resolve( __dirname, './controllers/' + this._type + '.json' )
+    }
+
     if( ! fs.existsSync( configPath ) ) {
-        console.log( ( 'The controller configuration for "' + this._type + '" does not exist.' ).red );
+        console.log( ( 'The controller configuration "' + configPath + '" does not exist.' ).red );
         process.exit( 0 );
     }
 

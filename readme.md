@@ -81,6 +81,12 @@ A status value is read from a pin on the hardware and then can be mapped to a "s
 ## Contributing Controllers
 
 You can add controller configuration files to the controllers directory. They are namespaced by `platform/vendor.json`. Each configuration file contains the pins/values mapped to the name of each button, joystick or status. You can use the [hid-mapper](https://www.npmjs.org/package/hid-mapper) tool which will help you create all the necessary mappings to save to your configuration file.
+If you want to use a local configuration for your controller, use the `configPath`-option like this:
+
+```
+var Gamepad = require('node-gamepad'),
+    controller = new Gamepad('some/controller', { configPath: 'path/to/your/controller.json' });
+```
 
 ## License
 
